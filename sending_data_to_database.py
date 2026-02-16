@@ -3,15 +3,11 @@ import requests
 import time
 import os
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
 def apimoviecall(title, year):
     try:
         print(f"Sending Plot And Poster Data Request to OMDb for {title} {year}")
 
-        apikey = os.getenv("OMDB_API_KEY")
+        apikey = "2c6bd367"
         plot = "short"
 
         params = {
@@ -31,7 +27,7 @@ def apimoviecall(title, year):
         return {"Plot": "NONE FOUND", "Poster": "NONE FOUND"}
 
 # Load your CSV
-df = pd.read_csv("moviefeelsexceldatabase_cleaned_ALLNUM.csv")
+df = pd.read_csv("movies_with_keywords.csv")
 
 # List of all mood columns
 mood_columns = [
@@ -77,7 +73,7 @@ for row in df.index:
             "year": int(df.loc[row, "Year"]),
             "synopsis": Plot,
             "image_url": Poster,
-            "storyline": df.loc[row, "Storyline"],
+            "keyword": df.loc[row, "Keywords"],
             "moods": moods_dict
         }
 
